@@ -21,6 +21,20 @@
 #include "inc/Reflectance_Sensor.h"
 #include "inc/Print_Binary.h"
 
+enum
+{
+    center = 0x18,
+    slightly_left_fc = 0x1C,
+    slightly_right_fc = 0x38,
+    far_left_fc = 0x01,
+    far_right_fc = 0x80,
+    left_turn = 0xF8,
+    right_turn = 0x1F,
+    t_intersection = 0xFF,
+    dead_end = 0x00
+};
+void Detect_Line_Position(uint8_t reflectance_sensor_data);
+
 int main(void)
 {
     // Initialize the 48 MHz Clock
@@ -29,6 +43,9 @@ int main(void)
     // Initialize the built-in red LED and the RGB LEDs
     LED1_Init();
     LED2_Init();
+
+    LED1_Output(RED_LED_OFF);
+    LED2_Output(RGB_LED_OFF);
 
     // Initialize the reflectance sensor
     Reflectance_Sensor_Init();
@@ -42,7 +59,89 @@ int main(void)
     while(1)
     {
         reflectance_sensor_data = Reflectance_Sensor_Read(1000);
+
+
+       Detect_Line_Position(reflectance_sensor_data);
+
+
         Print_Binary(reflectance_sensor_data);
+
         Clock_Delay1ms(10);
     }
 }
+
+void Detect_Line_Position(uint8_t reflectance_sensor_data)
+   {
+    switch(reflectance_sensor_data)
+    {
+        case center:
+        {
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_GREEN);
+            break;
+
+        }
+        case slightly_left_fc:
+        {
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_YELLOW);
+            break;
+
+        }
+        case slightly_right_fc:
+        {
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_PINK);
+            break;
+
+        }
+        case far_left_fc:
+        {
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_WHITE);
+            break;
+
+        }
+        case far_right_fc:
+        {
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_SKY_BLUE);
+            break;
+
+        }
+        case left_turn:
+        {
+            LED1_Output(RED_LED_ON);
+            LED2_Output(RGB_LED_WHITE);
+            break;
+
+        }
+        case right_turn:
+        {
+            LED1_Output(RED_LED_ON);
+            LED2_Output(RGB_LED_SKY_BLUE);
+            break;
+
+        }
+        case t_intersection:
+        {
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_BLUE);
+            break;
+
+        }
+        case dead_end:
+        {
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_RED);
+            break;
+
+        }
+        default:
+        {
+            LED1_Output(RED_LED_OFF);
+            LED2_Output(RGB_LED_OFF);
+            break;
+        }
+    }
+   }

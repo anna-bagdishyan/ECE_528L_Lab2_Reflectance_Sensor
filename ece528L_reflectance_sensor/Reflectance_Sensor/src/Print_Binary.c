@@ -6,7 +6,7 @@
  * which takes in a uint8_t value and prints the value in binary format.
  * It relies on the EUSCI_A0_UART driver.
  *
- * @author Aaron Nanas
+ * @author Anna Bagdishyan
  *
  */
 
@@ -14,6 +14,10 @@
 
 void Print_Binary(uint8_t value_to_convert)
 {
-    // Your Print_Binary function implementation goes here
-
+    printf("\nBinary: ");
+        for (int i = 7; i >= 0; i--)
+        {
+        int binary = (value_to_convert >> i) & 1;
+            printf("%d", binary);
+        }
 }
