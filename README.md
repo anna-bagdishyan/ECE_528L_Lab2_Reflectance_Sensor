@@ -10,7 +10,7 @@ The Reflectance Sensor lab interfaces with the following:
 * 8-Channel QTRX Sensor Array - [Product Link](https://www.pololu.com/product/3672)
 
 ## Overview
-This lab introduces the 8-Channel QTRX Reflectance Sensor Array, which uses eight IR LED and phototransistor pairs to detect black lines on a white surface. A GPIO driver was written to initialize and read the sensor array through pins P7.0 to P7.7, producing an 8-bit value where each bit is 1 for black and 0 for white. The sensor readings were displayed in binary on the serial terminal and used to identify line maze situations such as center, slightly left or right, far left or right, left and right turns, T-intersections, and dead ends. Each situation is indicated by a different RGB LED color.
+This lab introduces the 8-Channel QTRX Reflectance Sensor Array, which uses eight IR LED and phototransistor pairs to detect black lines on a white surface. A GPIO driver was provided to initialize and read the sensor array through pins P7.0 to P7.7, producing an 8-bit value where each bit is 1 for black and 0 for white. The sensor readings were displayed in binary on the serial terminal and used to identify line maze situations such as center, slightly left or right, far left or right, left and right turns, T-intersections, and dead ends. Each situation is indicated by a different RGB LED color.
 
 ## Components Used
 | Components Used | Quantity    | Manufacturer 
